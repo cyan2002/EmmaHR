@@ -21,7 +21,7 @@ h2 <- str_c(3.5 * (height / 5), "px")
 # the batch of files to be processed must be inside a single folder, with NO subfolders
 # navigate to the desired folder and choose one of the files
 #path <- file.choose() %>% dirname %>% str_c("/")
-path <- "/Users/chanceyan/Documents/R/InfraredTrials/MultipleSpeciesTrials/MultipleSpeciesTrialsData/MultipleSpeciesTrial_41_22up_Ls_converted"
+path <- "/Users/chanceyan/Documents/R/EmmaHR/EmmaHR/CardiacF(x)_converted/F2_Trial1_22C_converted"
 
 # list target files
 targetFiles <- dir(path, pattern = ".txt", ignore.case = TRUE, full.names = TRUE)
@@ -42,7 +42,7 @@ if (!file.exists(outputFiles$RData) | !file.exists(outputFiles$csv) | restart) {
     rawdata$id=basename(targetFiles[i])
     rawdata=rawdata %>% separate(id, c("id","empty"), ".txt")
     # rawdata=rawdata %>% separate(id, c("input","group","date","hms"), "_")
-    rawdata=rawdata %>% separate(id, c("input","group","trial","number","direction","pops","date","hms"), "_")# will need changing depending on file format
+    rawdata=rawdata %>% separate(id, c("input","group","exp","trial","treat","date","hms"), "_")# will need changing depending on file format
     rawdata$time <- paste(rawdata$date, rawdata$hms, sep="_")
     rawdata$time=as.POSIXlt(rawdata$time,    format = "%Y%m%d_%H%M%S")
     dev_id <- rawdata$group[1]
