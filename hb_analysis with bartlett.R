@@ -14,14 +14,14 @@ library(shiny)
 
 
 # it may be necessary to adjust the height of the 2 plots for them to fit in your screen
-height <- 700
+height <- 600
 h1 <- str_c(2 * (height / 5), "px")
 h2 <- str_c(3.5 * (height / 5), "px")
 
 # the batch of files to be processed must be inside a single folder, with NO subfolders
 # navigate to the desired folder and choose one of the files
 #path <- file.choose() %>% dirname %>% str_c("/")
-path <- "/Users/chanceyan/Documents/R/EmmaHR/EmmaHR/CardiacF(x)_converted/F2_Trial2_22C_converted"
+path <- "/Users/chanceyan/Documents/R/EmmaHR/EmmaHR/CardiacF(x)_converted/F2_Trial4_27C_converted"
 
 # list target files
 targetFiles <- dir(path, pattern = ".txt", ignore.case = TRUE, full.names = TRUE)
