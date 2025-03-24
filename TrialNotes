@@ -1,30 +1,49 @@
-Trial 1 - Good
+Trial 1 - REVISIT
+Input 0 - Early BP
+Input 1 - Bad Shape
+Input 3 - double BP
+Input 4 - Bad Shape
 
-Trial 2 - May need to revisit
+Trial 2 - REVISIT
+Input 0 - Bad Shape
+Input 1 - Bad Shape
+Input 5 - Bad Shape
 
-Trial 3 Input 3 - feedback
+Trial 3 - REVISIT
+Input 3 - feedback (trash)
+Input 5 - Add more points (noise)
 
-Trial 4 - Starting to notice weird pattern of FLT. I had previously thought adult FLTs were at 37 or so, but most individuals FLT I have seen lie around 40 degrees Celcius
+Trial 4 - Starting to notice weird pattern of FLT. I had previously thought adult FLTs were at 37 or so, but most individuals FLT I have seen lie around 40 degrees Celcius (REVISIT)
+Input 2 - Bad Shape
 
-Input 1 Trial 6 - Feedback near the end
+Trial 5 (GOOD)
+Input 3 - maybe add more points (kinda messy)
+
+Trial 6
+Input 1 - Feedback near the end, also bad shape
+Input 3 - bad shape
+Input 4 - bad shape
+Input 5 - Bad shapel
 
 Input 4 Trial 8 - unsure of FLT
 
 Input 0, Trial 9 - Small double abt? perhaps double check
 
-Input 2, Trial 10 - a lot of feedback near the end, difficult to tell what is a signal vs not
-Input 3, Trial 10 - early breaking point, perhaps look again perhaps throw out
+Trial 10
+Input 2 - a lot of feedback near the end, difficult to tell what is a signal vs not
+Input 3 - early breaking point, perhaps look again perhaps throw out
 
-Input 2, Trial 11 - double breaking point...? check
+Trial 11
+Input 2 - double breaking point...? check
 
-Input 0, Trial 12 - shape doesn't look good
-Input 3, Trial 12 - 4 points make shape look weird
-Input 4, Trial 12 - Late break point?
-Input 5, Trial 12 - weird shape
-Maybe re do Trial 12
+Trial 12
+Input 0 - shape doesn't look good
+Input 3 - 4 points make shape look weird
+Input 4 - Late break point?
+Input 5 - weird shape
 
-Trash input 1, Trial 13 (potential revisit?)
-Rest of Trial 13 is good
+Trial 13
+Input 1 - Trash input (potential revisit?)
 
 Trial 14 - There seems to be a lot of feedback (double breaking point) in trial 14
 Input 0 - very low breaking point (but shape looks good)
@@ -38,3 +57,8 @@ Input 1 - double break point (double check)
 Input 2 - bad shape
 Input 3 - double break point
 Input 4 - constant decrease (perhaps throw out)
+
+----------------------REDO----------------------------
+
+Trial 1
+Input 3 - Still see double breaking point...?
