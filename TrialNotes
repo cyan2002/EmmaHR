@@ -49,7 +49,7 @@ Input 4 - Late break point?
 Input 5 - weird shape
 
 Trial 13
-Input 1 - Trash input (potential revisit?)
+Input 1 - Trash input (potential revisit?), late BP too
 
 Trial 14 - There seems to be a lot of feedback (double breaking point) in trial 14
 Input 0 - very low breaking point (but shape looks good)
@@ -92,4 +92,12 @@ Trial 8
 Trial 9
 
 Trial 10
+
+Trial 11
+
+Trial 12
+-Input 0, 4 and 5 bad readings (perhaps throw out), while Input 5 has a reading, I got 2 different results so maybe retry INPUT 5 ONLY
+-Input 4 has feedback
+
+Trial 13
 
