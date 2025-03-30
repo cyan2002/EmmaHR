@@ -30,17 +30,17 @@ Input 0 - slight double BP
 Input 2 - Bad Shape
 
 Trial 8 
-Input 4 - unsure of FLT
+Input 1 - bad shape
+Input 5 - add more points - sketchy shape
 
-Trial 9
-Input 0 - Small double abt? perhaps double check
+Trial 9 - ALL GOOD
+Input 0 - Small double abt? perhaps double check (nah all good)
 
 Trial 10
-Input 2 - a lot of feedback near the end, difficult to tell what is a signal vs not
-Input 3 - early breaking point, perhaps look again perhaps throw out
+Input 3 - Bad shape, potential throw out (constant decrease)
 
 Trial 11
-Input 2 - double breaking point...? check
+Input 2 - double breaking point...? check (seems okay)
 
 Trial 12
 Input 0 - shape doesn't look good
@@ -83,3 +83,13 @@ Trial 5
 Trial 6
 Input 1 - Throw out (feedback)
 Input 3 - still a bit noisy, but semi good shape
+
+Trial 7
+Input 0 - Still finding odd results, original shape isn't bad just 3 off points. Perhaps re analyze. 
+
+Trial 8
+
+Trial 9
+
+Trial 10
+
