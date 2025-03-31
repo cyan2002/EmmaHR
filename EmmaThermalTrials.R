@@ -15,8 +15,9 @@ library(ggrepel)
   heartrates <- do.call(rbind, lapply(fulldata, read.csv))
   
   #loads and assigns ID to each invidividual
-  #my_data <- read.csv("Combined.csv")
-  #my_data$snail_id = paste(my_data$Trial, my_data$Input, sep="_")
+  require("readxl")
+  my_data <- read_excel("Combined.xlsx")
+  my_data$snail_id = paste(my_data$Trial, my_data$Input, sep="_")
   
   #remove first part of file name
   #heartrates$fname<-gsub("input_0_","",as.character(heartrates$fname))
