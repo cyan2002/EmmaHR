@@ -3,7 +3,7 @@
 
 # Load required libraries
 
-{
+{ 
 {library(dplyr)
   library(lubridate)
   
@@ -13,8 +13,8 @@
   # so "F2_Trial2_27C_output2.csv" would be fine
   #The script will merge all the data from all the output files into a single "fulldata" file
   
-  folder <-  "C:/Users/cdwane/Documents/Heartrate script/"
-  trialname<- "F2_Trial2_27C" #this should match the name of the temperature data file
+  folder <-  "/Users/chanceyan/Documents/R/EmmaHR/EmmaHR/New_CardiacF(x)_converted/"
+  trialname<- "F2_Trial16_27C" #this should match the name of the temperature data file
   file2=read.csv(paste(paste(folder, trialname, sep=''),'.csv', sep=''))
   # List all files in the folder
   files <- list.files(folder)

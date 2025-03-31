@@ -1,5 +1,6 @@
 
 # Script made by Christopher Dwane, 11/15/24 with inspiration from a previous shiny package developed by Rui Seabra at ElectricBlue
+#this is the correct script so that time is adding onto the file.
 
 # Load the packages
 library(shiny)
@@ -11,7 +12,7 @@ library(signal)
 
 # Change path below to the folder containing your converted raw data for a particular trial
 
-path <- "C:/Users/cdwane/Documents/Heartrate script/F2_Trial2_27C_converted"
+path <- "/Users/chanceyan/Documents/R/EmmaHR/EmmaHR/CardiacF(x)_converted/F2_Trial16_27C_converted"
 
 files <- list.files(path)
 dfs <- lapply(paste(path, files, sep="/"), read.table)
