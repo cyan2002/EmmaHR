@@ -30,6 +30,7 @@ library(multcomp)
 library(raster)
 library(pscl)
 library(lme4)
+library(AICcmodavg)
 
 #combining data
 {
