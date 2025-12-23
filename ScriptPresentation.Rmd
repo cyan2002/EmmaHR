@@ -19,7 +19,7 @@ This document is to show how I processed the cardiac function data collected by 
 
 5.  After collecting the HR data and temperatures that matched with them, I can begin using the data into a readable form and data analysis (this script). Below is the start of that. I begin with combining the data and making sure I have everything into a data frame.
 
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE, warning = FALSE, include = FALSE}
 library(ggplot2)
 library(patchwork)
 library(tidyverse)
@@ -280,6 +280,8 @@ tapply(flatlines$ABT, flatlines$Treatment, FUN = mean)
 
 Next step is to fit models and see which ones are the best. I'm gonna dredge the full model instead of building each one individually.
 
+The following are a list of the best models ranked by AIC
+
 ```{R, echo = FALSE, warning = FALSE}
 library(MuMIn)
 modFull <- glm(ABT ~ population*Treatment*group, data = flatlines, family = "Gamma"(link = "log"), na.action = na.fail)
@@ -287,6 +289,8 @@ dredge(modFull)
 ```
 
 Let's try the top 5 models (not including the double interaction because it has the most parameters) in a new AIC table.
+
+Comparing the top 5 models for Gamma vs Gaussian
 
 ```{R, echo = FALSE, warning = FALSE}
 mod1 <- glm(ABT ~ population*Treatment, data = flatlines, family = "Gamma"(link = "log"))
@@ -305,7 +309,7 @@ mod_list <- list(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10)
 aictab(mod_list)
 ```
 
-Still top 5 are the same models, but with the gaussian and identity link are a better fit. We can try all and look at the diagnostic plots to see if they're good.
+Still top 5 are the same models, but the gaussian and identity link are a better fit. We can try all and look at the diagnostic plots to see if they're good.
 
 ```{R, echo = FALSE, warning = FALSE}
 par(mfrow = c(2,2))
@@ -339,7 +343,9 @@ summary(bestMod)
 plot(bestMod)
 ```
 
-Mod 7 isn't too bad in terms of diagostic plots
+Mod 7 isn't too bad in terms of diagostic plots 
+
+Mod 7: glm(ABT ~ group + population*Treatment, data = flatlines, family = "gaussian"(link = "identity"))
 
 Let's check out with a random effect now.
 
@@ -379,6 +385,8 @@ hist(subset(flatlines$ABT, (flatlines$Treatment == "22C" & flatlines$population 
 hist(subset(flatlines$ABT, (flatlines$Treatment == "27C" & flatlines$population == "NC"))) 
 ```
 All decent fits... Let's go with the first one.
+
+glmer(ABT ~ population*Treatment + (1|day), data = flatlines, family = gaussian, na.action = na.fail)
 ```{R, echo = FALSE, warning = FALSE}
 mod1 <- glmer(ABT ~ population*Treatment + (1|day), data = flatlines, family = gaussian, na.action = na.fail)
 summary(mod1)
