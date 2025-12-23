@@ -1,6 +1,6 @@
 
 # Script made by Christopher Dwane, 11/15/24
-
+#make sure you remove unneeded columns in temperature file
 # Load required libraries
 
 { 
@@ -13,8 +13,8 @@
   # so "F2_Trial2_27C_output2.csv" would be fine
   #The script will merge all the data from all the output files into a single "fulldata" file
   
-  folder <-  "/Users/chanceyan/Documents/R/EmmaHR/EmmaHR/New_CardiacF(x)_converted/"
-  trialname<- "F2_Trial16_27C" #this should match the name of the temperature data file
+  folder <-  "/Users/chanceyan/Documents/R/Crab/CrabData/HRData/"
+  trialname<- "CrabHR_Trial7_17up_CIHS" #this should match the name of the temperature data file
   file2=read.csv(paste(paste(folder, trialname, sep=''),'.csv', sep=''))
   # List all files in the folder
   files <- list.files(folder)
@@ -25,7 +25,7 @@
   
   for (i in 1:length(matching_file)){
     filename= matching_file[i] 
-    load=read.csv(paste(folder, filename, sep=''), header=TRUE)
+    load=read.csv(paste(folder, filename, sep=''), header=TRUE, stringsAsFactors=F)
     assign(filename, load)}
   
   #merge output files
@@ -33,7 +33,7 @@
   file1 <- Reduce(function(x, y) merge(x, y, all = TRUE), matching_file)
   
   # Convert date and start_time columns to appropriate formats
-  file1$date <- ymd_hms(file1$time)
+  file1$date <- mdy_hm(file1$time)
   file1$start_time <- as.numeric(file1$start)
   file1$end_time <- as.numeric(file1$end)
   file1$recording_length=as.numeric(seconds(file1$end_time)-seconds(file1$start_time))
@@ -51,7 +51,8 @@
   file1$time <- ymd_hms(quiet=TRUE, file1$time, tz = "UTC")
   
   # Convert timestamp column in File 2 to appropriate format
-  colnames(file2)=c("timestamp","0","1","2","3","4","5")
+  #CHANGE BASED ON NUMBER OF INPUTS*******************************************
+  colnames(file2)=c("timestamp","0")
   
   # Convert ISO time to ymd_hms format
   file2$timestamp = gsub("(\\+|-)\\d{2}:\\d{2}$", "", file2$timestamp)

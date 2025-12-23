@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Data Analysis for Emma's Cardiac Function Data
 
 By Chance Yan on 4/2/25
@@ -14,7 +19,7 @@ This document is to show how I processed the cardiac function data collected by 
 
 5.  After collecting the HR data and temperatures that matched with them, I can begin using the data into a readable form and data analysis (this script). Below is the start of that. I begin with combining the data and making sure I have everything into a data frame.
 
-```{r}
+```{r, echo = FALSE, warning = FALSE}
 library(ggplot2)
 library(patchwork)
 library(tidyverse)
@@ -70,14 +75,14 @@ library(AICcmodavg)
 
 There are 96 total individuals that Emma tested. 24 in each group and treatment.
 
-```{r}
+```{r, echo = FALSE, warning = FALSE}
 a <- subset(heartrates, heartrates$confidence == "Flatline" | heartrates$confidence == "Zero")
 table(a$population, a$group)
 ```
 
 After I have put everything into the heart rates data frame, I remove unwanted signals (signals that were poor quality or did not run well with the script (mentioned later)). Looking at the groups again, we see there are less individuals, but still a large amount per group and treatment. After getting rid of the poor quality ones we see there are 85 signals.
 
-```{r}
+```{r, echo = FALSE, warning = FALSE}
 {
   heartrates <- heartratesbackup
   #removal of problem ones that wouldn't go through code
@@ -107,7 +112,7 @@ table(a$population, a$group)
 
 I will translate the data to ABT since it will make the results cleaner and since the script might only work for ABT values...
 
-```{r}
+```{r, echo = FALSE, warning = FALSE}
 
 #translates to ABTs
 library(weathermetrics) #Install this package if you dont have it already
@@ -165,7 +170,7 @@ for(i in individuallist[1:length(individuallist)]) {
 
 The following code is responsible for obtaining the break point values received from the graphs above and putting them into the data frame. There are also other values you receive as well such as slope, but for the analysis right now it seems we'll only use breaking point temperature.
 
-```{r}
+```{r, echo = FALSE, warning = FALSE}
 #collect data from regression lines huge code from here
 {
   library(weathermetrics)
@@ -245,7 +250,7 @@ heartratesbackup <- heartrates
 
 Looking at the data as a first glance and creating the date variable.
 
-```{R}
+```{R, echo = FALSE, warning = FALSE}
 #use the following code below when grapging Flatline graphs
 flatlines = subset(heartrates, confidence == 'Flatline' | confidence == "Zero")
 
@@ -275,7 +280,7 @@ tapply(flatlines$ABT, flatlines$Treatment, FUN = mean)
 
 Next step is to fit models and see which ones are the best. I'm gonna dredge the full model instead of building each one individually.
 
-```{R}
+```{R, echo = FALSE, warning = FALSE}
 library(MuMIn)
 modFull <- glm(ABT ~ population*Treatment*group, data = flatlines, family = "Gamma"(link = "log"), na.action = na.fail)
 dredge(modFull)
@@ -283,7 +288,7 @@ dredge(modFull)
 
 Let's try the top 5 models (not including the double interaction because it has the most parameters) in a new AIC table.
 
-```{R}
+```{R, echo = FALSE, warning = FALSE}
 mod1 <- glm(ABT ~ population*Treatment, data = flatlines, family = "Gamma"(link = "log"))
 mod2 <- glm(ABT ~ group + population*Treatment, data = flatlines, family = "Gamma"(link = "log"))
 mod3 <- glm(ABT ~ population + Treatment, data = flatlines, family = "Gamma"(link = "log"))
@@ -302,7 +307,7 @@ aictab(mod_list)
 
 Still top 5 are the same models, but with the gaussian and identity link are a better fit. We can try all and look at the diagnostic plots to see if they're good.
 
-```{R}
+```{R, echo = FALSE, warning = FALSE}
 par(mfrow = c(2,2))
 #Trying mod6
 bestMod <- glm(ABT ~ population*Treatment, data = flatlines, family = "gaussian"(link = "identity"))
@@ -338,7 +343,7 @@ Mod 7 isn't too bad in terms of diagostic plots
 
 Let's check out with a random effect now.
 
-```{R}
+```{R, echo = FALSE, warning = FALSE}
 library(lme4)
 modFull <- glmer(ABT ~ population*Treatment*group + (1|day), data = flatlines, family = gaussian, na.action = na.fail)
 dredge(modFull)
@@ -346,7 +351,7 @@ dredge(modFull)
 
 I'll try the top 4
 
-```{R}
+```{R, echo = FALSE, warning = FALSE}
 library(DHARMa)
 par(mfrow = c(2,2))
 mod1 <- glmer(ABT ~ population*Treatment + (1|day), data = flatlines, family = gaussian, na.action = na.fail)
@@ -374,7 +379,7 @@ hist(subset(flatlines$ABT, (flatlines$Treatment == "22C" & flatlines$population 
 hist(subset(flatlines$ABT, (flatlines$Treatment == "27C" & flatlines$population == "NC"))) 
 ```
 All decent fits... Let's go with the first one.
-```{R}
+```{R, echo = FALSE, warning = FALSE}
 mod1 <- glmer(ABT ~ population*Treatment + (1|day), data = flatlines, family = gaussian, na.action = na.fail)
 summary(mod1)
 

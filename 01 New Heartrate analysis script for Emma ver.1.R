@@ -12,7 +12,7 @@ library(signal)
 
 # Change path below to the folder containing your converted raw data for a particular trial
 
-path <- "/Users/chanceyan/Documents/R/InfraredTrials/MultipleSpeciesTrials/MultipleSpeciesTrialsData/MultipleSpeciesTrial_1_22up_Cm_converted"
+path <- "/Users/chanceyan/Documents/R/Crab/CrabData/HRData/CrabHR_Trial7_17up_CIHS_converted"
 
 files <- list.files(path)
 dfs <- lapply(paste(path, files, sep="/"), read.table)
@@ -42,6 +42,10 @@ ui <- fluidPage(
            fluidRow(
              column(3,
                     sliderInput("bandwidth", label = "bandwidth", animate=TRUE, animationOptions(interval=5), min = 0.1, max = 5, value = 1, step = 0.05)),
+             column(3,
+                    numericInput("manual_hr", label = "Manual Heart Rate", value = 1)),
+             column(3,
+                    radioButtons("apply_manual", "Manual override?", choices = list("Yes" = "Yes", "No" = "No"), selected = "No")),
              column(2,
                     numericInput("file", "Select a file:", value=1,min = 1, max = length(dfs)),
                     radioButtons("conf", label = "confidence", choices = list("Good" = "Good","Unsure" = "Unsure", "Discard" = "Discard", "Zero" = "Zero"), selected = "Good")),
@@ -121,11 +125,21 @@ server <- function(input, output) {
     sd <- ifelse(is.na(sd), -1, sd)
     std_err <- sd(peak_times$rr_intervals,na.rm = TRUE) / sqrt(length(peak_times$rr_intervals))
     std_err <- ifelse(is.na(std_err), -1, std_err)
+    
+    if(input$apply_manual=="Yes") {
+      av_hr <- input$manual_hr / ((data$time[length(data$time)]) - data$time[1]) * 60
+      std_err<- 0
+    }
+    
     if (input$conf == "Zero") {
       av_hr <- 0
       sd <- 0
       std_err <- 0
     }
+
+    
+    
+    
     currentdata <- data.frame(file = files[as.numeric(input$file)], heart_rate = (av_hr), sd = (sd), std_err = (std_err), confidence = (input$conf), start=data$time[1], end=data$time[length(data$time)])
     #print(currentdata)
     write_data(currentdata)
@@ -162,7 +176,7 @@ server <- function(input, output) {
       paste( sub(".*/", "", path),"_output",".csv", sep = "")
     },
     content = function(file) {
-      hr_data=hr_data %>% separate(file, c("blank","Input","blank2","Trial","Treatment","date","time"), "_")# will need changing depending on file format
+      hr_data=hr_data %>% separate(file, c("blank","Input","blank2","Trial","Treatment", "Species","date","time"), "_")# will need changing depending on file format
       hr_data=hr_data %>% separate(time, c("hms","empty"), ".txt")
       hr_data$time <- paste(hr_data$date, hr_data$hms, sep="_")
       hr_data$time=as.POSIXlt(hr_data$time,    format = "%Y%m%d_%H%M%S")
